@@ -29,6 +29,34 @@ pipeline {
             }
         }
 
+        stage('Checkout k8s manifest') {
+            steps {
+                git url: 'https://github.com/israeldoamaral/pedelogo-catalogo-jenkins-argocd-manifests.git'
+            }
+        }
+
+        stage('Update and push k8s manifest') {
+            environment {
+                tag_version = "${env.BUILD_ID}"
+            }
+            steps {
+                script{
+                    sh '''
+                    cat deployment.yaml
+                    sed -i "s/{{tag}}/$tag_version/g" k8s/deployment.yaml
+                    cat deployment.yaml
+
+                    '''
+                }
+            }
+        }
+
+                    // git add deployment.yaml
+                    // git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
+                    // git remote -v
+                    // git push https://github.com/israeldoamaral/pedelogo-catalogo-jenkins-argocd-manifests.git HEAD:main
+
+
         // stage('Deploy Kubernetes') {
         //     agent {
         //         kubernetes {
