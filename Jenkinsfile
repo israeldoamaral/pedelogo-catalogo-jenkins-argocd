@@ -46,16 +46,15 @@ pipeline {
                     cat k8s/api/deployment.yaml
                     sed -i "s/{{tag}}/$tag_version/g" k8s/api/deployment.yaml
                     cat k8s/api/deployment.yaml
-
+                    git add deployment.yaml
+                    git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
+                    git remote -v
+                    git push https://github.com/israeldoamaral/pedelogo-catalogo-jenkins-argocd-manifests.git HEAD:main
                     '''
                 }
             }
         }
 
-                    // git add deployment.yaml
-                    // git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
-                    // git remote -v
-                    // git push https://github.com/israeldoamaral/pedelogo-catalogo-jenkins-argocd-manifests.git HEAD:main
 
 
         // stage('Deploy Kubernetes') {
