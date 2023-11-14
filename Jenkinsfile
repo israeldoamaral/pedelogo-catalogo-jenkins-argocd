@@ -36,9 +36,9 @@ pipeline {
         }
 
         stage('Update and push k8s manifest') {
-            environment {
-                tag_version = "${env.BUILD_ID}"
-            }
+            // environment {
+            //     tag_version = "${env.BUILD_ID}"
+            // }
             steps {
                 script{
                     sh '''
