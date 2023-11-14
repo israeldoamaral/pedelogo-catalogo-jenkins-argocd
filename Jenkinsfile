@@ -42,9 +42,9 @@ pipeline {
             steps {
                 script{
                     sh '''
-                    cat deployment.yaml
-                    sed -i "s/{{tag}}/$tag_version/g" k8s/deployment.yaml
-                    cat deployment.yaml
+                    cat k8s/api/deployment.yaml
+                    sed -i "s/{{tag}}/$tag_version/g" k8s/api/deployment.yaml
+                    cat k8s/api/deployment.yaml
 
                     '''
                 }
