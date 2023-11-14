@@ -31,14 +31,14 @@ pipeline {
 
         stage('Checkout k8s manifest') {
             steps {
-                git url: 'https://github.com/israeldoamaral/pedelogo-catalogo-jenkins-argocd-manifests.git'
+                git url: 'https://github.com/israeldoamaral/pedelogo-catalogo-jenkins-argocd-manifests.git', branch: 'main'
             }
         }
 
         stage('Update and push k8s manifest') {
-            // environment {
-            //     tag_version = "${env.BUILD_ID}"
-            // }
+            environment {
+                 tag_version = "${env.BUILD_ID}"
+            }
             steps {
                 script{
                     sh '''
