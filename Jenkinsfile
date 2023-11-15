@@ -39,12 +39,18 @@ pipeline {
         stage('Update and push k8s manifest') {
             environment {
                  tag_version = "${env.BUILD_ID}"
+                 GIT_USER_EMAIL = credentials('email_github')
+                 GIT_USER_NAME = credentials('nome_usuario_github')
             }
             steps {
                 script{
                     sh 'cat k8s/api/deployment.yaml'
                     sh 'sed -i "s/{{tag}}/$tag_version/g" k8s/api/deployment.yaml'
                     sh 'cat k8s/api/deployment.yaml'
+
+                    sh 'git config user.email "$GIT_USER_EMAIL"'
+                    sh 'git config user.name "$GIT_USER_NAME"'
+
                     sh 'git add k8s/api/deployment.yaml'
                     sh 'git commit -m "Updated the deploy yaml"'
                     sh 'git push origin main'
