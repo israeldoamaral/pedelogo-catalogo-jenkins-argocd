@@ -47,7 +47,7 @@ pipeline {
                     sh 'git add k8s/api/deployment.yaml'
                     sh 'git commit -m "Updated the deploy yaml"'
                     sh 'git remote -v'
-                    withCredentials([usernamePassword(credentialsId: 'github-id', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                    withCredentials([string(credentialsId: 'githubtoken', variable: 'GIT_TOKEN')]) {
                         sh 'git push origin main'
                     }
                 }
