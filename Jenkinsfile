@@ -45,20 +45,16 @@ pipeline {
             }
             steps {
                 script{
-                    //def tag = sh(script: "grep 'pedelogo-catalogo-jenkins-argocd:' k8s/api/deployment.yaml | awk -F '/' '{print \$2}'", returnStdout: true).trim()
-                    sh 'echo $tag'
-                    // sh "cat k8s/api/deployment.yaml"
+                    sh "cat k8s/api/deployment.yaml"
+                    sh "sed -i 's/\$tag/pedelogo-catalogo-jenkins-argocd:\$tag_version/g' k8s/api/deployment.yaml"
+                    sh "cat k8s/api/deployment.yaml"
 
-                    // sh "sed -i 's/{{tag}}/pedelogo-catalogo-jenkins-argocd:\$tag_version/g' k8s/api/deployment.yaml"
-                    
-                    // sh "cat k8s/api/deployment.yaml"
+                    sh "git config user.email '\$GIT_USER_EMAIL'"
+                    sh "git config user.name '\$GIT_USER_NAME'"
 
-                    // sh "git config user.email '\$GIT_USER_EMAIL'"
-                    // sh "git config user.name '\$GIT_USER_NAME'"
-
-                    // sh "git add k8s/api/deployment.yaml"
-                    // sh "git commit -m 'Updated the deploy yaml'"
-                    // sh "git push origin main"
+                    sh "git add k8s/api/deployment.yaml"
+                    sh "git commit -m 'Updated the deploy yaml'"
+                    sh "git push origin main"
                 }
             }
         }
