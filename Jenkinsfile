@@ -41,7 +41,7 @@ pipeline {
             }
             steps {
                 script{
-                    withCredentials([gitUsernamePassword(credentialsId: 'github-id', gitToolName: 'Default')]) {
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'GITHUB_TOKEN', usernameVariable: 'GITHUB_USER')]) {
                     sh '''
                     echo $tag_version
                     cat k8s/api/deployment.yaml
@@ -50,14 +50,14 @@ pipeline {
                     git add k8s/api/deployment.yaml
                     git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
                     git remote -v
-                    git push https://github.com/israeldoamaral/pedelogo-catalogo-jenkins-argocd-manifests.git HEAD:main
+                    git push https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/israeldoamaral/pedelogo-catalogo-jenkins-argocd-manifests.git HEAD:main
                     '''
                     }
                 }
             }
         }
 
-
+        //            git push https://github.com/israeldoamaral/pedelogo-catalogo-jenkins-argocd-manifests.git HEAD:main
 
         // stage('Deploy Kubernetes') {
         //     agent {
