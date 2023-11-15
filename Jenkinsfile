@@ -34,7 +34,7 @@ pipeline {
                 GIT_CREDENTIALS = credentials('github-id')
             }
             steps {
-                git branch: 'main', credentialsId: 'github-id', url: 'https://github.com/israeldoamaral/pedelogo-catalogo-jenkins-argocd-manifests.git', branch: 'main'
+                git branch: 'main', credentialsId: 'github-id', url: 'https://github.com/israeldoamaral/pedelogo-catalogo-jenkins-argocd-manifests.git'
             }
         }
 
