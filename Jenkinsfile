@@ -31,7 +31,8 @@ pipeline {
 
         stage('Checkout k8s manifest') {
             steps {
-                git branch: 'main', credentialsId: 'github-id', url: 'https://github.com/israeldoamaral/pedelogo-catalogo-jenkins-argocd-manifests.git'
+                //git branch: 'main', credentialsId: 'github-id', url: 'https://github.com/israeldoamaral/pedelogo-catalogo-jenkins-argocd-manifests.git'
+                git credentialsId: '2907cd72-fc88-4efd-bf7c-40630fd8bd04', url: 'git@github.com:israeldoamaral/pedelogo-catalogo-jenkins-argocd-manifests.git', branch: 'main'
             }
         }
 
@@ -47,9 +48,7 @@ pipeline {
                     sh 'git add k8s/api/deployment.yaml'
                     sh 'git commit -m "Updated the deploy yaml"'
                     sh 'git remote -v'
-                    withCredentials([sshUserPrivateKey(credentialsId: '2907cd72-fc88-4efd-bf7c-40630fd8bd04', keyFileVariable: '')]) {
-                        sh 'git push origin main'
-                    }
+                    sh 'git push origin main'
                 }
             }
         }
