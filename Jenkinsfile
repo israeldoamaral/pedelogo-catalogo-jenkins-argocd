@@ -45,7 +45,7 @@ pipeline {
                     sh 'sed -i "s/{{tag}}/$tag_version/g" k8s/api/deployment.yaml'
                     sh 'cat k8s/api/deployment.yaml'
                     sh 'git add k8s/api/deployment.yaml'
-                    sh 'git commit -m 'Updated the deploy yaml''
+                    sh 'git commit -m "Updated the deploy yaml"'
                     sh 'git remote -v'
                     withCredentials([usernamePassword(credentialsId: 'github-id', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                         sh 'git push origin main'
