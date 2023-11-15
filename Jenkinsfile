@@ -47,7 +47,6 @@ pipeline {
                     sh 'cat k8s/api/deployment.yaml'
                     sh 'git add k8s/api/deployment.yaml'
                     sh 'git commit -m "Updated the deploy yaml"'
-                    sh 'git remote -v'
                     sh 'git push origin main'
                 }
             }
