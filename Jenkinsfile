@@ -30,11 +30,8 @@ pipeline {
         }
 
         stage('Checkout k8s manifest') {
-            environment {
-                GIT_CREDENTIALS = credentials('github-id')
-            }
             steps {
-                git branch: 'main', credentialsId: "${GIT_CREDENTIALS}", url: 'https://github.com/israeldoamaral/pedelogo-catalogo-jenkins-argocd-manifests.git'
+                git branch: 'main', credentialsId: 'github-id', url: 'https://github.com/israeldoamaral/pedelogo-catalogo-jenkins-argocd-manifests.git'
             }
         }
 
