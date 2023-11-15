@@ -42,7 +42,6 @@ pipeline {
             }
             steps {
                 script{
-                    sh 'git config --global security.gitHostKeyVerificationConfiguration.sshHostKeyVerificationStrategy acceptFirstConnectionStrategy'
                     sh 'cat k8s/api/deployment.yaml'
                     sh 'sed -i "s/{{tag}}/$tag_version/g" k8s/api/deployment.yaml'
                     sh 'cat k8s/api/deployment.yaml'
