@@ -44,8 +44,11 @@ pipeline {
             }
             steps {
                 script{
+                    sh 'tag=`grep 'pedelogo-catalogo-jenkins-argocd:' k8s/api/deployment.yaml.bkp | awk -F '/' '{print $2}'`'
                     sh 'cat k8s/api/deployment.yaml'
-                    sh 'sed -i "s/{{tag}}/$tag_version/g" k8s/api/deployment.yaml'
+                    sh 'sed -i "s/{{tag}}/pedelogo-catalogo-jenkins-argocd:$tag_version/g" k8s/api/deployment.yaml'
+                    // sh 'cat k8s/api/deployment.yaml'
+                    // sh 'sed -i "s/{{tag}}/$tag_version/g" k8s/api/deployment.yaml'
                     sh 'cat k8s/api/deployment.yaml'
 
                     sh 'git config user.email "$GIT_USER_EMAIL"'
