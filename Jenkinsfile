@@ -48,7 +48,7 @@ pipeline {
                     sed -i "s/{{tag}}/$tag_version/g" k8s/api/deployment.yaml
                     cat k8s/api/deployment.yaml
                     git add k8s/api/deployment.yaml
-                    git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
+                    git commit -m 'Updated the deploy yaml'
                     git remote -v
                     git push https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/israeldoamaral/pedelogo-catalogo-jenkins-argocd-manifests.git HEAD:main
                     '''
