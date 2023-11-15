@@ -41,6 +41,7 @@ pipeline {
             }
             steps {
                 script{
+                    withCredentials([usernamePassword(credentialsId: 'github-id', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                     sh '''
                     echo $tag_version
                     cat k8s/api/deployment.yaml
@@ -51,6 +52,7 @@ pipeline {
                     git remote -v
                     git push https://github.com/israeldoamaral/pedelogo-catalogo-jenkins-argocd-manifests.git HEAD:main
                     '''
+                    }
                 }
             }
         }
