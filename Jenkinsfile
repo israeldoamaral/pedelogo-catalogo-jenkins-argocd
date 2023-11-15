@@ -45,7 +45,7 @@ pipeline {
             steps {
                 script{
                     def tag = sh(script: "grep 'pedelogo-catalogo-jenkins-argocd:' k8s/api/deployment.yaml | awk -F '/' '{print \$2}'", returnStdout: true).trim()
-                    sh 'echo $tag'
+                    sh 'print $tag'
                     // sh "cat k8s/api/deployment.yaml"
 
                     // sh "sed -i 's/{{tag}}/pedelogo-catalogo-jenkins-argocd:\$tag_version/g' k8s/api/deployment.yaml"
