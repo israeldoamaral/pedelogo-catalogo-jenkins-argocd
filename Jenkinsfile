@@ -41,7 +41,7 @@ pipeline {
             }
             steps {
                 script{
-                    withCredentials([usernamePassword(credentialsId: 'github-id', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                    withCredentials([gitUsernamePassword(credentialsId: 'github-id', gitToolName: 'Default')]) {
                     sh '''
                     echo $tag_version
                     cat k8s/api/deployment.yaml
