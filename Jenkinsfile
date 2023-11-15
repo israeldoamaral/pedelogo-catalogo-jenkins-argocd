@@ -47,7 +47,7 @@ pipeline {
                     sh 'git add k8s/api/deployment.yaml'
                     sh 'git commit -m "Updated the deploy yaml"'
                     sh 'git remote -v'
-                    withCredentials([usernamePassword(credentialsId: 'jenkins-github-commit', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                    withCredentials([sshUserPrivateKey(credentialsId: '2907cd72-fc88-4efd-bf7c-40630fd8bd04', keyFileVariable: 'GitHUB_SSH')]) {
                         sh 'git push origin main'
                     }
                 }
