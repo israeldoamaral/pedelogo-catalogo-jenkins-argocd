@@ -31,7 +31,6 @@ pipeline {
 
         stage('Checkout k8s manifest') {
             steps {
-                //git branch: 'main', credentialsId: 'github-id', url: 'https://github.com/israeldoamaral/pedelogo-catalogo-jenkins-argocd-manifests.git'
                 git credentialsId: '2907cd72-fc88-4efd-bf7c-40630fd8bd04', url: 'git@github.com:israeldoamaral/pedelogo-catalogo-jenkins-argocd-manifests.git', branch: 'main'
             }
         }
@@ -41,18 +40,18 @@ pipeline {
                  tag_version = "${env.BUILD_ID}"
                  GIT_USER_EMAIL = credentials('email_github')
                  GIT_USER_NAME = credentials('nome_usuario_github')
-                 tag = sh(script: "grep 'pedelogo-catalogo-jenkins-argocd:' k8s/api/deployment.yaml | awk -F '/' '{print \$2}'", returnStdout: true).trim()
+                 tag = sh(script: "grep 'pedelogo-catalogo-jenkins-argocd:' k8s/api-deployment.yaml | awk -F '/' '{print \$2}'", returnStdout: true).trim()
             }
             steps {
                 script{
-                    sh "cat k8s/api/deployment.yaml"
-                    sh "sed -i 's/$tag/pedelogo-catalogo-jenkins-argocd:$tag_version/g' k8s/api/deployment.yaml"
-                    sh "cat k8s/api/deployment.yaml"
+                    sh "cat k8s/api-deployment.yaml"
+                    sh "sed -i 's/$tag/pedelogo-catalogo-jenkins-argocd:$tag_version/g' k8s/api-deployment.yaml"
+                    sh "cat k8s/api-deployment.yaml"
 
                     sh "git config user.email '\$GIT_USER_EMAIL'"
                     sh "git config user.name '\$GIT_USER_NAME'"
 
-                    sh "git add k8s/api/deployment.yaml"
+                    sh "git add k8s/api-deployment.yaml"
                     sh "git commit -m 'Updated the deploy yaml'"
                     sh "git push origin main"
                 }
